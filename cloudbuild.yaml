@@ -1,0 +1,11 @@
+steps:
+- name: gcr.io/kaniko-project/executor:v1.6.0-debug
+  entrypoint: /busybox/sh
+  args:
+    - '-c'
+    - >-
+      executor
+      --destination=gcr.io/$PROJECT_ID/3ber:$BRANCH_NAME
+      --destination=gcr.io/$PROJECT_ID/3ber:$COMMIT_SHA
+      --cache=true
+timeout: 900s
