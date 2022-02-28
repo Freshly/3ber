@@ -19,3 +19,5 @@ docker-build: deps fmt
 
 docker-push:
 	./scripts/docker-push.sh
+
+dist: build docker-build docker-push
