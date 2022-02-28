@@ -5,6 +5,8 @@ package voice
 import (
 	"fmt"
 	"os/exec"
+
+	"github.com/freshly/3ber/pkg/common"
 )
 
 // TODO detect available voices
@@ -27,5 +29,5 @@ func say(message string) error {
 		"-w",
 		message)
 
-	return runCommand(cmd, true)
+	return common.RunCommand(cmd, true)
 }

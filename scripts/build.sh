@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -e
 set -x
 NAME=${NAME-3ber}
 CROSS=${CROSS-false}

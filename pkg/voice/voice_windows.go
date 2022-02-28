@@ -7,6 +7,8 @@ import (
 	"math/rand"
 	"os"
 	"os/exec"
+
+	"github.com/freshly/3ber/pkg/common"
 )
 
 var VOICES = []string{""}
@@ -31,5 +33,5 @@ func say(message string) error {
 	cmd := exec.Command(VOICE_CMD,
 		"/c", tempFile)
 
-	return runCommand(cmd, false)
+	return common.RunCommand(cmd, false)
 }

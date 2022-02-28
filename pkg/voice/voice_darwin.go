@@ -4,6 +4,8 @@ package voice
 
 import (
 	"os/exec"
+
+	"github.com/freshly/3ber/pkg/common"
 )
 
 // TODO detect available voices
@@ -22,5 +24,5 @@ func say(message string) error {
 		"--interactive",
 		message)
 
-	return runCommand(cmd, true)
+	return common.RunCommand(cmd, true)
 }
