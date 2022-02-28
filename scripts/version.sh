@@ -21,7 +21,12 @@ if [ -d .git ]; then
     fi
 fi
 
-VERSION="${COMMIT:0:8}${DIRTY}"
+if [ ! -z "$GIT_TAG" ]; then
+    VERSION="${GIT_TAG}${DIRTY}"
+else
+    VERSION="${COMMIT:0:8}${DIRTY}"
+fi
+
 VERSIONFLAGS="
     -X ${REPO}/pkg/version.Version=${VERSION}
     -X ${REPO}/pkg/version.GitCommit=${COMMIT:0:8}
