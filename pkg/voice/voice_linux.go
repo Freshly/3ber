@@ -9,18 +9,22 @@ import (
 
 // TODO detect available voices
 var VOICES = []string{
-	"english",
-	"english-us",
-	"en-scottish",
+	"male1",
+	"male2",
+	"male3",
+	"female1",
+	"female2",
+	"female3",
 }
 var VOICE = VOICES[0]
-var VOICE_CMD = "espeak"
+var VOICE_CMD = "spd-say"
 
 func say(message string) error {
 	fmt.Println(message)
 
 	cmd := exec.Command(VOICE_CMD,
-		"-v", VOICE,
+		"-t", VOICE,
+		"-w",
 		message)
 
 	return runCommand(cmd)
