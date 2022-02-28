@@ -9,14 +9,13 @@ fmt:
 	gofmt -w .
 
 build: deps fmt
-	./scripts/build.sh
+	CROSS=true ./scripts/build.sh
 
 test:
 	go test
 
-build_docker: deps fmt
-	docker build . \
-		-t {{image}}:{{tag}}
+docker-build: deps fmt
+	./scripts/docker-build.sh
 
-publish_docker:
-	docker push {{image}}:{{tag}}
+docker-push:
+	./scripts/docker-push.sh

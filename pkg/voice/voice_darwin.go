@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// TODO detect available voices
 var VOICES = []string{
 	"daniel",
 	"fiona",

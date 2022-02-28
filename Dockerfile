@@ -6,7 +6,7 @@ COPY go.mod go.sum .
 RUN go mod download && go mod verify
 
 COPY . .
-RUN ./scripts/build-docker.sh
+RUN ./scripts/build.sh
 
 FROM alpine:3.15.0
 COPY --from=golang-build /3ber/bin/3ber /usr/local/bin/
