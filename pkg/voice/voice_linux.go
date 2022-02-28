@@ -27,5 +27,5 @@ func say(message string) error {
 		"-w",
 		message)
 
-	return runCommand(cmd)
+	return runCommand(cmd, true)
 }

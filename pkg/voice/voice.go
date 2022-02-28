@@ -11,7 +11,7 @@ import (
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
-	VOICE = randomVoice()
+	VOICE = VOICES[rand.Int()%len(VOICES)]
 }
 
 func Say(message string) {
@@ -42,11 +42,7 @@ func lookPath(command string) string {
 	return path
 }
 
-func randomVoice() string {
-	return VOICES[rand.Int()%len(VOICES)]
-}
-
-func runCommand(cmd *exec.Cmd) error {
+func runCommand(cmd *exec.Cmd, printStdout bool) error {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return err
@@ -59,7 +55,9 @@ func runCommand(cmd *exec.Cmd) error {
 	for {
 		buf := make([]byte, 1024)
 		_, err := stdout.Read(buf)
-		fmt.Print(string(buf))
+		if printStdout {
+			fmt.Print(string(buf))
+		}
 		if err != nil {
 			break
 		}

@@ -24,10 +24,10 @@ fi
 if [ ! -z "$GIT_TAG" ]; then
     VERSION="${GIT_TAG}${DIRTY}"
 else
-    VERSION="${COMMIT:0:8}${DIRTY}"
+    VERSION="${COMMIT:0:7}${DIRTY}"
 fi
 
 VERSIONFLAGS="
     -X ${REPO}/pkg/version.Version=${VERSION}
-    -X ${REPO}/pkg/version.GitCommit=${COMMIT:0:8}
+    -X ${REPO}/pkg/version.GitCommit=${COMMIT:0:7}
 "

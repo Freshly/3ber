@@ -22,5 +22,5 @@ func say(message string) error {
 		"--interactive",
 		message)
 
-	return runCommand(cmd)
+	return runCommand(cmd, true)
 }
