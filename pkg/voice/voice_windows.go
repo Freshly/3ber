@@ -33,5 +33,5 @@ func say(message string) error {
 	cmd := exec.Command(VOICE_CMD,
 		"/c", tempFile)
 
-	return common.RunCommand(cmd, false)
+	return common.RunCommandNoPrint(cmd, false)
 }

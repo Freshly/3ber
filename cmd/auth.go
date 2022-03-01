@@ -20,14 +20,12 @@ var (
 			mustExist("gcloud")
 			mustExist("kubectl")
 
-			c := exec.Command("kubectl", "config", "get-contexts", "-o", "name")
-			if err := common.RunCommand(c, true); err != nil {
-				fmt.Printf("command failed: %v\n", err)
-				os.Exit(1)
-			}
-			// TODO look if already populated...
 			if authCmdForceFlag {
-				voice.Say("force is set")
+				voice.Say("Forcefully reauthenticating.")
+			} else if hasExpectedContexts() {
+				voice.Say("I detected existing Kubernetes cluster credentials.")
+				voice.Say("If you want to re-authenticate, use the -f or --force flag.")
+				os.Exit(0)
 			}
 
 			voice.Say("Freshly hosts its infrastructure on Google Cloud. I will first help you authenticate.")
@@ -35,13 +33,15 @@ var (
 				voice.Say("Please navigate to your web browser and then login to your Freshly Okta account.")
 			}()
 
-			c = exec.Command("gcloud", "auth", "login")
+			c := exec.Command("gcloud", "auth", "login")
 			if err := common.RunCommand(c, true); err != nil {
 				fmt.Printf("command failed: %v\n", err)
 				os.Exit(1)
 			}
 			voice.Say("Authentication was successful. I will now get the Kubernetes cluster credentials.")
 
+			// TODO dynamically enumerate projects
+			// TODO dynamically enumerate Kubernetes cluster credentials in each project
 			c = exec.Command("gcloud", "container", "clusters", "get-credentials", "internal-v2",
 				"--zone", "us-central1-f",
 				"--project", "freshly-internal")

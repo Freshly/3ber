@@ -1,11 +1,18 @@
 package common
 
 import (
+	"bufio"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 func RunCommand(cmd *exec.Cmd, printStdout bool) error {
+	PrintCommand(cmd)
+	return RunCommandNoPrint(cmd, printStdout)
+}
+
+func RunCommandNoPrint(cmd *exec.Cmd, printStdout bool) error {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return err
@@ -27,4 +34,29 @@ func RunCommand(cmd *exec.Cmd, printStdout bool) error {
 	}
 
 	return cmd.Wait()
+}
+
+func RunCommandOutputArray(cmd *exec.Cmd) ([]string, error) {
+	PrintCommand(cmd)
+
+	output := []string{}
+
+	r, _ := cmd.StdoutPipe()
+	// cmd.Stderr = cmd.Stdout
+
+	err := cmd.Start()
+	if err != nil {
+		return output, err
+	}
+
+	scanner := bufio.NewScanner(r)
+	for scanner.Scan() {
+		output = append(output, scanner.Text())
+	}
+
+	return output, cmd.Wait()
+}
+
+func PrintCommand(cmd *exec.Cmd) {
+	fmt.Printf(">>> %s\n", strings.Join(cmd.Args, " "))
 }

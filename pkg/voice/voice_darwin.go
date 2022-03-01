@@ -24,5 +24,5 @@ func say(message string) error {
 		"--interactive",
 		message)
 
-	return common.RunCommand(cmd, true)
+	return common.RunCommandNoPrint(cmd, true)
 }

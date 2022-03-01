@@ -29,5 +29,5 @@ func say(message string) error {
 		"-w",
 		message)
 
-	return common.RunCommand(cmd, true)
+	return common.RunCommandNoPrint(cmd, true)
 }
