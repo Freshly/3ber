@@ -20,7 +20,7 @@ var (
 	contextCmd = &cobra.Command{
 		Use:     "context",
 		Aliases: []string{"ctx"},
-		Short:   "Manage Kubernetes cluster contexts",
+		Short:   "manage kubernetes cluster contexts",
 		Long: `Manage Kubernetes cluster contexts. Effective context management enables
 effortless switching between different environments.`,
 	}
@@ -41,7 +41,7 @@ effortless switching between different environments.`,
 	}
 	getContextsCmd = &cobra.Command{
 		Use:    "get",
-		Short:  "Get all available Kubernetes cluster contexts",
+		Short:  "List all available Kubernetes cluster contexts",
 		PreRun: kubectlMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
 			voice.Say("The available Kubernetes cluster contexts are defined in $HOME/.kube/config")
@@ -52,7 +52,7 @@ effortless switching between different environments.`,
 		},
 	}
 	setContextCmd = &cobra.Command{
-		Use:    "set [context]",
+		Use:    "set [CONTEXT]",
 		Short:  "Set current Kubernetes cluster context",
 		PreRun: kubectlMustExist,
 		Run: func(cmd *cobra.Command, args []string) {

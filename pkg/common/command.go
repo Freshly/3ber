@@ -21,6 +21,7 @@ func RunCommandNoPrint(cmd *exec.Cmd, printStdout bool) error {
 	if err != nil {
 		return err
 	}
+	cmd.Stderr = cmd.Stdout
 
 	if err = cmd.Start(); err != nil {
 		return err

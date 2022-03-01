@@ -14,6 +14,10 @@ func init() {
 	VOICE = VOICES[rand.Int()%len(VOICES)]
 }
 
+func Sayf(message string, args ...interface{}) {
+	Say(fmt.Sprintf(message, args...))
+}
+
 func Say(message string) {
 	if viper.GetBool("QUIET") {
 		return

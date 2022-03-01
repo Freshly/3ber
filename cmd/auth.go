@@ -14,17 +14,18 @@ var (
 	authCmdForceFlag = false
 	authCmd          = &cobra.Command{
 		Use:     "auth",
-		Aliases: []string{"auth"},
-		Short:   "Authenticate to Google Cloud and populate Kubernetes contexts",
-		Run: func(cmd *cobra.Command, args []string) {
+		Aliases: []string{"a"},
+		Short:   "authenticate to google cloud and populate kubernetes cluster contexts",
+		PreRun: func(cmd *cobra.Command, args []string) {
 			mustExist("gcloud")
 			mustExist("kubectl")
-
+		},
+		Run: func(cmd *cobra.Command, args []string) {
 			if authCmdForceFlag {
 				voice.Say("Forcefully reauthenticating.")
 			} else if hasExpectedContexts() {
 				voice.Say("I detected existing Kubernetes cluster credentials.")
-				voice.Say("If you want to re-authenticate, use the -f or --force flag.")
+				voice.Say("If you want to reauthenticate, use the -f or --force flag.")
 				os.Exit(0)
 			}
 
