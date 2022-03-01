@@ -15,6 +15,9 @@ func init() {
 }
 
 func Say(message string) {
+	if viper.GetBool("QUIET") {
+		return
+	}
 	resolve()
 	if viper.GetBool("VOICE") {
 		err := say(message)

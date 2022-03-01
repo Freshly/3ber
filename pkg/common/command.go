@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+
+	"github.com/spf13/viper"
 )
 
 func RunCommand(cmd *exec.Cmd, printStdout bool) error {
-	PrintCommand(cmd)
+	if !viper.GetBool("QUIET") {
+		PrintCommand(cmd)
+	}
 	return RunCommandNoPrint(cmd, printStdout)
 }
 
@@ -37,7 +41,9 @@ func RunCommandNoPrint(cmd *exec.Cmd, printStdout bool) error {
 }
 
 func RunCommandOutputArray(cmd *exec.Cmd) ([]string, error) {
-	PrintCommand(cmd)
+	if !viper.GetBool("QUIET") {
+		PrintCommand(cmd)
+	}
 
 	output := []string{}
 

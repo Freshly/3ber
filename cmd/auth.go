@@ -15,7 +15,7 @@ var (
 	authCmd          = &cobra.Command{
 		Use:     "auth",
 		Aliases: []string{"auth"},
-		Short:   "Authenticate to Google Cloud and populate Kubernetes config",
+		Short:   "Authenticate to Google Cloud and populate Kubernetes contexts",
 		Run: func(cmd *cobra.Command, args []string) {
 			mustExist("gcloud")
 			mustExist("kubectl")
@@ -74,4 +74,5 @@ var (
 
 func init() {
 	authCmd.Flags().BoolVarP(&authCmdForceFlag, "force", "f", false, "re-authenticate even if credentials already exist")
+	rootCmd.AddCommand(authCmd)
 }
