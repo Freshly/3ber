@@ -16,7 +16,7 @@ func init() {
 
 func Say(message string) {
 	resolve()
-	if viper.GetBool("3BER_VOICE") {
+	if viper.GetBool("VOICE") {
 		err := say(message)
 		if err != nil {
 			fmt.Println(err)
@@ -27,7 +27,7 @@ func Say(message string) {
 }
 
 func resolve() {
-	if viper.GetBool("3BER_VOICE") {
+	if viper.GetBool("VOICE") {
 		VOICE_CMD = lookPath(VOICE_CMD)
 	}
 }
@@ -37,7 +37,7 @@ func lookPath(command string) string {
 	path, err := exec.LookPath(command)
 	if err != nil {
 		fmt.Printf("WARNING: '%s' not found in PATH, disabling voice synthesizer\n", command)
-		viper.Set("3BER_VOICE", "false")
+		viper.Set("VOICE", "false")
 	}
 	return path
 }

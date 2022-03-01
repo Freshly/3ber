@@ -12,6 +12,8 @@ var (
 		Aliases: []string{"context"},
 		Short:   "Manage Kubernetes config contexts",
 		Run: func(cmd *cobra.Command, args []string) {
+			mustExist("kubectl")
+
 			fmt.Printf("TODO\n")
 			// kubectl config current-context
 			// kubectl config get-contexts -o name
