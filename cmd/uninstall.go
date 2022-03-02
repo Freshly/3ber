@@ -13,7 +13,7 @@ import (
 var (
 	uninstallCmdNamespaceFlag = ""
 	uninstallCmd              = &cobra.Command{
-		Use:     "uninstall [RELEASE_NAME]",
+		Use:     "uninstall [RELEASE]",
 		Aliases: []string{"u"},
 		Short:   "uninstall a helm chart release",
 		PreRun:  helmMustExist,

@@ -14,12 +14,12 @@ var (
 	installCmdNamespaceFlag = ""
 	installCmdSetFlags      = []string{}
 	installCmd              = &cobra.Command{
-		Use:     "install [RELEASE_NAME] [CHART]",
+		Use:     "install [RELEASE] [CHART]",
 		Aliases: []string{"i"},
 		Short:   "install a helm chart release",
 		Long: `This command installs a chart archive.
 
-The RELEASE_NAME argument must be a unique release name.
+The RELEASE argument must be a unique release name.
 
 The CHART argument must be a chart reference, a path to a packaged chart,
 a path to an unpacked chart directory or a URL.`,
