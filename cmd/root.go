@@ -14,7 +14,7 @@ import (
 var (
 	rootCmd = &cobra.Command{
 		Use:   "3ber",
-		Short: "Freshly infrastructure management tool",
+		Short: "Kubernetes release manager and training tool for Freshly's CI/CD pipeline",
 	}
 	mustExistInstallMap = map[string]string{
 		"gcloud":  "https://cloud.google.com/sdk/docs/install",

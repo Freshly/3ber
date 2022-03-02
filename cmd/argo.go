@@ -27,6 +27,7 @@ Argo can also be configured to populate Helm value override flags with build-
 related events. For example, a Cloud Build might overwrite a Helm value
 override triggering an automatic chart upgrade.`,
 	}
+	// TODO argo create
 	deleteArgoAppNamespaceFlag = ""
 	deleteArgoAppCmd           = &cobra.Command{
 		Use:     "delete [APP_NAME]",
@@ -55,6 +56,7 @@ override triggering an automatic chart upgrade.`,
 			}
 		},
 	}
+	// TODO argo edit
 	getArgoAppNamespaceFlag = ""
 	getArgoAppOutputFlag    = ""
 	getArgoAppCmd           = &cobra.Command{
