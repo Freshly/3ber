@@ -16,9 +16,7 @@ var (
 		Use:     "uninstall [RELEASE_NAME]",
 		Aliases: []string{"u"},
 		Short:   "uninstall a helm chart release",
-		PreRun: func(cmd *cobra.Command, args []string) {
-			mustExist("helm")
-		},
+		PreRun:  helmMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) != 1 {
 				if err := cmd.Usage(); err != nil {

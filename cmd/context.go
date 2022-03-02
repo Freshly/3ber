@@ -93,10 +93,6 @@ effortless switching between different environments.`,
 	}
 )
 
-func kubectlMustExist(cmd *cobra.Command, args []string) {
-	mustExist("kubectl")
-}
-
 func init() {
 	rootCmd.AddCommand(contextCmd)
 	contextCmd.AddCommand(currentContextCmd)

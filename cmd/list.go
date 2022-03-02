@@ -18,9 +18,7 @@ var (
 		Aliases: []string{"ls"},
 		Short:   "list helm chart releases",
 		Long:    "This command lists all of the releases for a specified namespace (uses current namespace context if namespace not specified).",
-		PreRun: func(cmd *cobra.Command, args []string) {
-			mustExist("helm")
-		},
+		PreRun:  helmMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
 			helmArgs := []string{"list"}
 

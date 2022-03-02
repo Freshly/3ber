@@ -56,6 +56,14 @@ func mustExist(command string) string {
 	return path
 }
 
+func kubectlMustExist(cmd *cobra.Command, args []string) {
+	mustExist("kubectl")
+}
+
+func helmMustExist(cmd *cobra.Command, args []string) {
+	mustExist("helm")
+}
+
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {

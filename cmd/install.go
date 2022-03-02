@@ -23,9 +23,7 @@ The RELEASE_NAME argument must be a unique release name.
 
 The CHART argument must be a chart reference, a path to a packaged chart,
 a path to an unpacked chart directory or a URL.`,
-		PreRun: func(cmd *cobra.Command, args []string) {
-			mustExist("helm")
-		},
+		PreRun: helmMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) != 2 {
 				if err := cmd.Usage(); err != nil {
