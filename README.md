@@ -8,8 +8,6 @@ One more than [tuber](https://github.com/Freshly/tuber).
 
 The goal of 3ber is to obsolete itself by training developers to use the underlying toolchain.
 
-3ber can always be referenced if your goldfish brain resets at midnight like mine does.
-
 ## Prerequisites
 
 Install the gcloud CLI:
