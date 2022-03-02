@@ -33,7 +33,7 @@ https://helm.sh/docs/intro/install/
 Run the following commands in your terminal:
 
 ```
-VERSION=0.4.1
+VERSION=0.4.2
 curl -sSfL https://github.com/Freshly/3ber/releases/download/${VERSION}/3ber-`uname -s`-`uname -m` -o /tmp/3ber
 chmod +x /tmp/3ber
 sudo mv /tmp/3ber /usr/local/bin/
