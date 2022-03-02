@@ -22,9 +22,7 @@ https://kubernetes.io/docs/tasks/tools/
 
 ## Installation
 
-3ber supports Linux, Mac, and Windows.
-
-Head over to the (release)[https://github.com/Freshly/3ber/releases] page and download the relevant binary. Add executable permissions, if necessary, and move the binary to your PATH. Alternatively, you can use the automated instructions below.
+3ber supports Mac, Linux, and Windows.
 
 ### Mac / Linux
 
@@ -36,6 +34,10 @@ curl -sSfL https://github.com/Freshly/3ber/releases/download/${VERSION}/3ber-`un
 chmod +x /tmp/3ber
 sudo mv /tmp/3ber /usr/local/bin/
 ```
+
+### Windows
+
+Head over to the [release](https://github.com/Freshly/3ber/releases) page and download the Windows binary. Move the binary to your PATH, maybe `C:\Windows\system32`.
 
 ## Usage
 
