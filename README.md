@@ -45,6 +45,36 @@ Head over to the [release](https://github.com/Freshly/3ber/releases) page and do
 
 ## Usage
 
+You will want to `3ber auth` first to authenticate with Google Cloud and populate your Kube config file.
+
+The 3ber CLI embeds usage information for all commands and subcommands. If you simply run `3ber`, you will see this usage message:
+
+```
+Kubernetes release manager and training tool for Freshly's CI/CD pipeline
+
+Usage:
+  3ber [command]
+
+Available Commands:
+  argo        manage the argo continuous delivery pipeline
+  auth        authenticate to google cloud and populate kubernetes cluster contexts
+  completion  Generate the autocompletion script for the specified shell
+  context     manage kubernetes cluster contexts
+  help        Help about any command
+  install     install a helm chart release
+  list        list helm chart releases
+  uninstall   uninstall a helm chart release
+  upgrade     upgrade a helm chart release
+  version     print the program version
+
+Flags:
+  -h, --help    help for 3ber
+  -q, --quiet   disable info logging
+  -v, --voice   enable voice synthesizer
+
+Use "3ber [command] --help" for more information about a command.
+```
+
 ## Building
 
 To cross-compile this project for all target platforms, run:
