@@ -2,7 +2,7 @@
 
 ![logo](logo.png)
 
-One more than [tuber](github.com/Freshly/tuber).
+One more than [tuber](https://github.com/Freshly/tuber).
 
 3ber is a Kubernetes ([GKE](https://cloud.google.com/kubernetes-engine)) release manager and training tool for Freshly's CI/CD pipeline.
 
