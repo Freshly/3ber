@@ -20,6 +20,10 @@ Install kubectl:
 
 https://kubernetes.io/docs/tasks/tools/
 
+Install helm:
+
+https://helm.sh/docs/intro/install/
+
 ## Installation
 
 3ber supports Mac, Linux, and Windows.
