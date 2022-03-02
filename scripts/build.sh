@@ -7,10 +7,10 @@ CROSS=${CROSS-false}
 . ./scripts/version.sh
 
 if [ "$CROSS" == "true" ]; then
-	GOOS=linux GOARCH=amd64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}
-	GOOS=linux GOARCH=arm64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-arm64
-	GOOS=darwin GOARCH=amd64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-darwin
-	GOOS=darwin GOARCH=arm64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-darwin-arm64
+	GOOS=linux GOARCH=amd64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-Linux-x86_64
+	GOOS=linux GOARCH=arm64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-Linux-arm64
+	GOOS=darwin GOARCH=amd64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-Darwin-x86_64
+	GOOS=darwin GOARCH=arm64 go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}-Darwin-arm64
 	GOOS=windows go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}.exe
 else
 	go build -ldflags "${VERSIONFLAGS}" -o bin/${NAME}

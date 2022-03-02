@@ -11,6 +11,11 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	defaultArgoNamespace    = "argocd"
+	defaultArgoOutputFormat = "yaml"
+)
+
 var (
 	argoCmd = &cobra.Command{
 		Use:   "argo",
@@ -22,21 +27,25 @@ Argo can also be configured to populate Helm value override flags with build-
 related events. For example, a Cloud Build might overwrite a Helm value
 override triggering an automatic chart upgrade.`,
 	}
-	listArgoAppsNamespaceFlag     = ""
-	listArgoAppsAllNamespacesFlag = false
-	listArgoAppsCmd               = &cobra.Command{
-		Use:     "list",
-		Aliases: []string{"ls"},
-		Short:   "list argo applications",
+	deleteArgoAppNamespaceFlag = ""
+	deleteArgoAppCmd           = &cobra.Command{
+		Use:     "delete [APP_NAME]",
+		Aliases: []string{"del"},
+		Short:   "delete argo application",
 		PreRun:  kubectlMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
-			voice.Say("Fetching the Argo application resources")
+			if len(args) != 1 {
+				if err := cmd.Usage(); err != nil {
+					fmt.Printf("usage error: %v\n", err)
+				}
+				os.Exit(1)
+			}
+			appName := args[0]
 
-			kubeArgs := []string{"get", "application"}
-			if listArgoAppsAllNamespacesFlag {
-				kubeArgs = append(kubeArgs, "--all-namespaces")
-			} else if listArgoAppsNamespaceFlag != "" {
-				kubeArgs = append(kubeArgs, "--namespace", listArgoAppsNamespaceFlag)
+			voice.Say("Deleting the Argo application resource")
+			kubeArgs := []string{"delete", fmt.Sprintf("application/%s", appName)}
+			if deleteArgoAppNamespaceFlag != "" {
+				kubeArgs = append(kubeArgs, "--namespace", deleteArgoAppNamespaceFlag)
 			}
 
 			c := exec.Command("kubectl", kubeArgs...)
@@ -79,14 +88,45 @@ override triggering an automatic chart upgrade.`,
 			}
 		},
 	}
+	listArgoAppsNamespaceFlag     = ""
+	listArgoAppsAllNamespacesFlag = false
+	listArgoAppsWatchFlag         = false
+	listArgoAppsCmd               = &cobra.Command{
+		Use:     "list",
+		Aliases: []string{"ls"},
+		Short:   "list argo applications",
+		PreRun:  kubectlMustExist,
+		Run: func(cmd *cobra.Command, args []string) {
+			voice.Say("Fetching the Argo application resources")
+
+			kubeArgs := []string{"get", "application"}
+			if listArgoAppsAllNamespacesFlag {
+				kubeArgs = append(kubeArgs, "--all-namespaces")
+			} else if listArgoAppsNamespaceFlag != "" {
+				kubeArgs = append(kubeArgs, "--namespace", listArgoAppsNamespaceFlag)
+			}
+			if listArgoAppsWatchFlag {
+				kubeArgs = append(kubeArgs, "--watch")
+			}
+
+			c := exec.Command("kubectl", kubeArgs...)
+			if err := common.RunCommand(c, true); err != nil {
+				fmt.Printf("command failed: %v\n", err)
+				os.Exit(1)
+			}
+		},
+	}
 )
 
 func init() {
-	listArgoAppsCmd.Flags().StringVarP(&listArgoAppsNamespaceFlag, "namespace", "n", "argocd", "list applications for a target namespace")
+	deleteArgoAppCmd.Flags().StringVarP(&deleteArgoAppNamespaceFlag, "namespace", "n", defaultArgoNamespace, "delete application from a target namespace")
+	getArgoAppCmd.Flags().StringVarP(&getArgoAppNamespaceFlag, "namespace", "n", defaultArgoNamespace, "get application from a target namespace")
+	getArgoAppCmd.Flags().StringVarP(&getArgoAppOutputFlag, "output", "o", defaultArgoOutputFormat, "output format, one of: name|json|jsonpath={}|yaml")
+	listArgoAppsCmd.Flags().StringVarP(&listArgoAppsNamespaceFlag, "namespace", "n", defaultArgoNamespace, "list applications for a target namespace")
 	listArgoAppsCmd.Flags().BoolVarP(&listArgoAppsAllNamespacesFlag, "all-namespaces", "A", false, "list applications across all namespaces")
-	getArgoAppCmd.Flags().StringVarP(&getArgoAppNamespaceFlag, "namespace", "n", "argocd", "list applications for a target namespace")
-	getArgoAppCmd.Flags().StringVarP(&getArgoAppOutputFlag, "output", "o", "yaml", "output format, one of: name|json|jsonpath={}|yaml")
+	listArgoAppsCmd.Flags().BoolVarP(&listArgoAppsWatchFlag, "watch", "w", false, "after listing the applications, watch for changes")
 	rootCmd.AddCommand(argoCmd)
-	argoCmd.AddCommand(listArgoAppsCmd)
+	argoCmd.AddCommand(deleteArgoAppCmd)
 	argoCmd.AddCommand(getArgoAppCmd)
+	argoCmd.AddCommand(listArgoAppsCmd)
 }
