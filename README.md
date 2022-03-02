@@ -43,6 +43,21 @@ sudo mv /tmp/3ber /usr/local/bin/
 
 Head over to the [release](https://github.com/Freshly/3ber/releases) page and download the Windows binary. Move the binary to your PATH, maybe `C:\Windows\system32`.
 
+### Installing From Source
+
+If you have the `go` build toolchain installed, you can build from main:
+
+```
+go install github.com/freshly/3ber
+```
+
+You will notice version information is not present:
+
+```
+$ 3ber version
+version dev, git commit HEAD
+```
+
 ## Usage
 
 You will want to `3ber auth` first to authenticate with Google Cloud and populate your Kube config file.
