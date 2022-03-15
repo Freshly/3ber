@@ -110,6 +110,7 @@ override triggering an automatic chart upgrade.`,
 			if listArgoAppsWatchFlag {
 				kubeArgs = append(kubeArgs, "--watch")
 			}
+			kubeArgs = append(kubeArgs, "--output", "wide")
 
 			c := exec.Command("kubectl", kubeArgs...)
 			if err := common.RunCommand(c, true); err != nil {
