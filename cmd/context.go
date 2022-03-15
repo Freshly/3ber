@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/freshly/3ber/pkg/common"
 	"github.com/freshly/3ber/pkg/voice"
@@ -25,9 +26,10 @@ var (
 effortless switching between different environments.`,
 	}
 	currentContextCmd = &cobra.Command{
-		Use:    "current",
-		Short:  "Get current Kubernetes cluster context",
-		PreRun: kubectlMustExist,
+		Use:     "current",
+		Aliases: []string{"cur"},
+		Short:   "Get current Kubernetes cluster context",
+		PreRun:  kubectlMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
 			voice.Say("The current Kubernetes cluster context is defined in $HOME/.kube/config")
 			c := exec.Command("kubectl", "config", "current-context")
@@ -40,9 +42,10 @@ effortless switching between different environments.`,
 		},
 	}
 	getContextsCmd = &cobra.Command{
-		Use:    "get",
-		Short:  "List all available Kubernetes cluster contexts",
-		PreRun: kubectlMustExist,
+		Use:     "get",
+		Aliases: []string{"ls"},
+		Short:   "List all available Kubernetes cluster contexts",
+		PreRun:  kubectlMustExist,
 		Run: func(cmd *cobra.Command, args []string) {
 			voice.Say("The available Kubernetes cluster contexts are defined in $HOME/.kube/config")
 			contexts := getContextsOrDie()
@@ -64,17 +67,24 @@ effortless switching between different environments.`,
 			}
 			desiredContext := args[0]
 
-			// TODO regular expression support? need to resolve a unique context to proceed
-			foundDesiredContext := false
 			existingContexts := getContextsOrDie()
+			filteredContexts := []string{}
 			for _, existingContext := range existingContexts {
-				if existingContext == desiredContext {
-					foundDesiredContext = true
-					break
+				if strings.Contains(existingContext, desiredContext) {
+					filteredContexts = append(filteredContexts, existingContext)
 				}
 			}
 
-			if !foundDesiredContext {
+			switch {
+			case len(filteredContexts) > 1:
+				voice.Say("I found more than one matching context, so I will abort:")
+				for _, filteredContext := range filteredContexts {
+					fmt.Println(filteredContext)
+				}
+				os.Exit(1)
+			case len(filteredContexts) == 1:
+				desiredContext = filteredContexts[0]
+			case len(filteredContexts) == 0:
 				voice.Say("I could not find the requested context, so I will abort.")
 				os.Exit(1)
 				// TODO add force option maybe
