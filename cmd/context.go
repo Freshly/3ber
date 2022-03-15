@@ -41,8 +41,8 @@ effortless switching between different environments.`,
 			fmt.Println(contexts[0])
 		},
 	}
-	getContextsCmd = &cobra.Command{
-		Use:     "get",
+	listContextsCmd = &cobra.Command{
+		Use:     "list",
 		Aliases: []string{"ls"},
 		Short:   "List all available Kubernetes cluster contexts",
 		PreRun:  kubectlMustExist,
@@ -106,7 +106,7 @@ effortless switching between different environments.`,
 func init() {
 	rootCmd.AddCommand(contextCmd)
 	contextCmd.AddCommand(currentContextCmd)
-	contextCmd.AddCommand(getContextsCmd)
+	contextCmd.AddCommand(listContextsCmd)
 	contextCmd.AddCommand(setContextCmd)
 }
 
