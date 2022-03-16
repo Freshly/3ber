@@ -6,6 +6,7 @@ import (
 	"github.com/freshly/3ber/pkg/version"
 	"github.com/freshly/3ber/pkg/voice"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var (
@@ -14,7 +15,12 @@ var (
 		Aliases: []string{"ver"},
 		Short:   "print the program version",
 		Run: func(cmd *cobra.Command, args []string) {
-			voice.Say(fmt.Sprintf("version %s, git commit %s", version.Version, version.GitCommit))
+			message := fmt.Sprintf("version %s, git commit %s", version.Version, version.GitCommit)
+			if viper.GetBool("QUIET") {
+				fmt.Println(message)
+			} else {
+				voice.Say(message)
+			}
 		},
 	}
 )
