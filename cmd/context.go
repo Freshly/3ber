@@ -92,7 +92,7 @@ effortless switching between different environments.`,
 			}
 
 			voice.Say("I will set the current Kubernetes cluster context in $HOME/.kube/config")
-			c := exec.Command("kubectl", "config", "set-context", desiredContext)
+			c := exec.Command("kubectl", "config", "use-context", desiredContext)
 			results, err := common.RunCommandOutputArray(c)
 			if err != nil {
 				fmt.Printf("command failed: %v\n", err)
