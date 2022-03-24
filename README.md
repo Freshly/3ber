@@ -73,11 +73,8 @@ Available Commands:
   auth        authenticate to google cloud and populate kubernetes cluster contexts
   completion  Generate the autocompletion script for the specified shell
   context     manage kubernetes cluster contexts
+  helm        manage helm charts
   help        Help about any command
-  install     install a helm chart release
-  list        list helm chart releases
-  uninstall   uninstall a helm chart release
-  upgrade     upgrade a helm chart release
   version     print the program version
 
 Flags:
